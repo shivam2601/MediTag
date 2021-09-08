@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load qr_code %}
+{% block header %}
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'basic_qr:profile' num %}">Profile</a>
+</li>
+{% endblock %}
+{% block content %}
+    <center>
+      <h1>{{info.name}} 's Profile &emsp;</h1>
+
+    </center>
+    {% if allow %}
+
+    <a style="float:right"class="btn btn-primary" href="{% url 'basic_qr:update-medform' info.id %}" role="button">Edit Details</a>
+    {% endif %}
+    <br><br>
+    <div class="row">
+      <div class="col">
+        <div class="card text-center card-body">
+          <h2 class="card-title">Your Unique QR</h2>
+          <center>
+              <img src="{% qr_url_from_text path size=3 version=10 image_format='png' %}" alt="Hello world" download>
+              <p></p>
+              <a class="btn btn-primary" href="{% qr_url_from_text path size=4 version=10 image_format='png' %}" download>Download</a>
+            <!-- <p>
+              {{info.id}}
+            </p> -->
+
+          </center>
+        </div>
+
+      </div>
+      <div class="col">
+        <div class="card text-center card-body">
+
+          <h2 class="card-title">Basic Information</h2>
+          <ul>
+            <li>Contact No.: {{info.contact_no}}</li>
+            <li>Emergency Contact: {{info.emergency_no}}</li>
+            <li>Blood Group: {{info.blood_group}}</li>
+            <li>Height (cms): {{info.height_cms}}</li>
+            <li>Weight (kgs): {{info.weight_kgs}}</li>
+
+          </ul>
+
+        </div>
+
+      </div>
+      <div class="col">
+        <div class="card text-center card-body">
+          <h2 class="card-title">Allergies</h2>
+          <p>{{ info.allergies }}</p>
+        </div>
+
+      </div>
+
+
+    </div>
+    <br>
+    <div class="row">
+      <div class="col">
+        <div class="card text-center card-body">
+          <h2 class="card-title">Disabilities</h2>
+          <p>{{ info.disabilities }}</p>
+        </div>
+
+      </div>
+      <div class="col">
+        <div class="card text-center card-body">
+          <h2 class="card-title">Special Medical Conditions</h2>
+          <p>{{ info.spl_med_conditions }}</p>
+        </div>
+
+      </div>
+      <div class="col">
+        <div class="card text-center card-body">
+          <h2 class="card-title">Ongoing Medication</h2>
+          <p>{{ info.ongoing_meds }}</p>
+        </div>
+
+      </div>
+
+    </div>
+    <br><br>
+    <div class="text-center">
+      {% if allow %}
+      <a href="#" class="btn btn-primary">Upload Documents</a>
+      {% endif %}
+      <a href="#" class="btn btn-primary"> View Uploaded Documents</a>
+    </div>
+
+<script>
+
+</script>
+
+
+{% endblock %}
