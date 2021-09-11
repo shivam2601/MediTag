@@ -1,5 +1,92 @@
+
 {% extends 'base.html' %}
 {% block content %}
-<h1>Welcome to the landing page</h1>
-<p>Add your about, motive etc on front end</p>
+{% load static %} 
+
+     <style>
+        .child-step-container{
+            display: flex; justify-content: space-between;
+          }
+          .flex-container{
+            display: flex;
+          }
+        .steps-container{
+          background-color: #00305B; width: 100%; height: auto; text-align: center;
+          padding: 20px;
+        }
+        .step{
+          width: 30%;
+          height: 40vh;
+          padding: 30px;
+        }
+        .hero-image{
+          width: 70%; height:48vh
+        }
+        .ht-hero{
+          height:48vh
+        }
+        @media (max-width: 800px) {
+          .child-step-container{
+            display:flex;
+            flex-direction: column;
+            align-items: space-between;
+          }
+          .flex-container{
+            display: flex;
+            flex-direction: column;
+            
+          }
+          .step{
+          width: 100%;
+          height: auto;
+          padding: 40px;
+          }
+          .hero-image{
+          width: 100%; height:41vh
+          }
+          .ht-hero{
+          height:auto
+          }
+        }
+        
+    </style>
+<div class="flex-container">
+<img class="hero-image" src="{% static 'assets/bgImg.jpg' %}" alt="img"  >
+
+<div style="padding:20px; text-align: center;" class="ht-hero"> 
+    <h1 style="font-weight: bold">Medi Tag</h1>
+    <h3 >Record your health detail and medical reports all in one place</h3>
+    <p style="font-size: large; font-weight: bolder;" >---------------------------------------------</p>
+    <h3>For easy & one-tap access to life-saving information in case of emergency</h3>
+</div>
+</div>
+
+<div class="steps-container">
+    <h1 style="color: yellow;"> 3 Simple Steps</h1>
+    <div class="child-step-container" >
+        <div style="display: flex;" class="step">
+            <h1 style="color: yellow;">1 </h1>
+        <img src="{% static 'assets/1.png' %}" alt="img" style="width: 100%; height: 100%;" >
+        </div>
+        <div style="display: flex;" class="step">
+            <h1 style="color: yellow;">2 </h1>
+
+        <img src="{% static 'assets/2.png' %}" alt="img" style="width: 100%; height: 100%;" >
+    </div>
+    <div style="display: flex;" class="step">
+        <h1 style="color: yellow;">3</h1>
+
+        <img src="{% static 'assets/3.png' %}" alt="img" style="width: 100%; height: 100%;" >
+    </div>
+
+
+    </div>
+</div>
+    <h1 style="text-align: center;"> 100+ Trusted User</h1>
+    <div class="steps-container">
+       
+        <a class="nav-link" href="{% url 'basic_qr:register' %}"> <button> <h2>Register Now!</h2></button></a>
+
+    </div>
+    
 {% endblock %}
