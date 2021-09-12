@@ -1,98 +1,226 @@
-{% extends 'base.html' %}
-{% load qr_code %}
-{% block header %}
+{% extends 'base.html' %} {% load qr_code %} {% block header %}
+<style>
+  .list-item-size {
+    font-size: 1rem;
+  }
+  .steps-container {
+    background-color: #00305b;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+  }
+  .text-wt {
+    color: white;
+  }
+  .responsive-flex {
+    display: flex;
+  }
+  .common-container {
+    background-color: #00c2cb;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+  }
+  .container-1 {
+    width: 25vw;
+  }
+  .container-2 {
+    width: 45vw;
+
+  }
+  .container-3 {
+    width: 30vw;
+  }
+  .img-size{
+    height:75%; width:25% ;
+  }
+  .img-size-b{
+    position: absolute;
+    right: 50px;
+    top: 40px;
+    height: 90px;
+    width: 90px;
+    }
+  @media (max-width: 800px) {
+    .responsive-flex {
+      display: flex;
+      flex-direction: column;
+    }
+    .container-1 {
+      width: 70vw;
+    }
+    .container-2 {
+      width: 30vw;
+    }
+    .container-3 {
+      width: 100vw;
+    }
+    .img-size{
+      height:60%; width:60% ;
+    }
+    .img-size-b{
+      position: absolute;
+      right: 15px;
+      top: 60px;
+      height: 70px;
+      width: 70px;
+    }
+  }
+</style>
 <li class="nav-item">
   <a class="nav-link" href="{% url 'basic_qr:profile' num %}">Profile</a>
 </li>
-{% endblock %}
-{% block content %}
-    <center>
+{% endblock %} {% block content %}
+<!-- <center>
       <h1>{{info.name}} 's Profile &emsp;</h1>
+    </center> -->
 
-    </center>
-    {% if allow %}
+<br /><br />
+<div class="responsive-flex">
+  <div style="display: flex">
 
-    <a style="float:right"class="btn btn-primary" href="{% url 'basic_qr:update-medform' info.id %}" role="button">Edit Details</a>
-    {% endif %}
-    <br><br>
-    <div class="row">
-      <div class="col">
-        <div class="card text-center card-body">
-          <h2 class="card-title">Your Unique QR</h2>
-          <center>
-              <img src="{% qr_url_from_text path size=3 version=10 image_format='png' %}" alt="Hello world" download>
-              <p></p>
-              <a class="btn btn-primary" href="{% qr_url_from_text path size=4 version=10 image_format='png' %}" download>Download</a>
-            <!-- <p>
-              {{info.id}}
-            </p> -->
-
-          </center>
-        </div>
-
-      </div>
-      <div class="col">
-        <div class="card text-center card-body">
-
-          <h2 class="card-title">Basic Information</h2>
-          <ul>
-            <li>Contact No.: {{info.contact_no}}</li>
-            <li>Emergency Contact: {{info.emergency_no}}</li>
+    <div class="container-1" style="padding: 10px 15px">
+      <ul style="list-style: none; padding: 0px">
+        <li><div class="row"><div class="col"> <h6>Name-</h6> </div> <div class="col">{{info.name}}</div></div> </li>
+        <li><div class="row"><div class="col"> <h6>Date Of birth-</h6> </div> <div class="col">Pending</div></div> </li>
+        <li><div class="row"><div class="col"> <h6>Contact No.-</h6> </div> <div class="col">Pending</div></div> </li>
+        <li><div class="row"><div class="col"> <h6>Address-</h6> </div> <div class="col">Pending</div></div> </li>
+        <!-- <li>Emergency Contact: {{info.emergency_no}}</li>
             <li>Blood Group: {{info.blood_group}}</li>
             <li>Height (cms): {{info.height_cms}}</li>
-            <li>Weight (kgs): {{info.weight_kgs}}</li>
-
-          </ul>
-
-        </div>
-
-      </div>
-      <div class="col">
-        <div class="card text-center card-body">
-          <h2 class="card-title">Allergies</h2>
-          <p>{{ info.allergies }}</p>
-        </div>
-
-      </div>
+            <li>Weight (kgs): {{info.weight_kgs}}</li> -->
+      </ul>
+      
 
 
     </div>
-    <br>
-    <div class="row">
-      <div class="col">
-        <div class="card text-center card-body">
-          <h2 class="card-title">Disabilities</h2>
-          <p>{{ info.disabilities }}</p>
-        </div>
 
-      </div>
-      <div class="col">
-        <div class="card text-center card-body">
-          <h2 class="card-title">Special Medical Conditions</h2>
-          <p>{{ info.spl_med_conditions }}</p>
-        </div>
 
-      </div>
-      <div class="col">
-        <div class="card text-center card-body">
-          <h2 class="card-title">Ongoing Medication</h2>
-          <p>{{ info.ongoing_meds }}</p>
-        </div>
-
-      </div>
-
-    </div>
-    <br><br>
-    <div class="text-center">
-      {% if allow %}
-      <a href="#" class="btn btn-primary">Upload Documents</a>
-      {% endif %}
-      <a href="#" class="btn btn-primary"> View Uploaded Documents</a>
+    <div class="container-2 text-center" style="padding: 10px 0">
+      {% load static %} 
+        <img class="img-size" src="{% static 'assets/pic.png' %}"  alt="home" />
+    
     </div>
 
-<script>
+    
 
-</script>
+    
+  </div>
+  <div class="container-3" style="text-align: center">
+    <h4 class="card-title">Your Unique</h4>
+    <div class="text-center" style="display: flex;  justify-content: center;">
+      <div style="display: flex; flex-direction: column;">
+      <h4 style="color: #ffc107f7; font-weight: bolder;">QR</h4>
+      <h4>Code</h4>
+    </div>
+    <img
+      src="{% qr_url_from_text path size=1 version=10 image_format='png' %}"
+      alt="Hello world"
+      download
+    />
+    </div>
 
+    <p></p>
+    <a
+      class="btn btn-primary"
+      href="{% qr_url_from_text path size=4 version=10 image_format='png' %}"
+      download
+      >Download</a
+    >
+    <!-- <p>
+            {{info.id}}
+          </p> -->
+  </div>
+  
+</div>
+
+<br />
+
+<div class="steps-container" style="position: relative;">
+  <h2 class="text-wt">Contact in case of Emergency</h2>
+
+  <br />
+  <div class="row">
+    <div class="col-4"><h4 class="text-wt">Name</h4></div>
+    <div class="col-8"><p class="text-wt">{{info.name}}</p></div>
+  </div>
+  <div class="row">
+    <div class="col-4"><h4 class="text-wt">Contact No.</h4></div>
+    <div class="col-8"><p class="text-wt">{{info.emergency_no}}</p></div>
+  </div>
+  <img class="img-size-b" src="{% static 'assets/5.png' %}"  alt="home" />
+  
+</div>
+
+<div style="padding: 10px">
+  <h1 class="text-center">Medical Record</h1>
+  <br />
+  <div class="row">
+    <div class="col-4">
+      <h4 class="card-title">Allergies</h4>
+    </div>
+    <div class="col-8">
+      <p style="word-break:break-all">{{ info.allergies }}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4">
+      <h4 class="card-title">Disabilities</h4>
+    </div>
+    <div class="col-8">
+      <p style="word-break:break-all">{{ info.disabilities }}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4">
+      <h4 class="card-title">Special Medical Conditions</h4>
+    </div>
+    <div class="col-8">
+      <p style="word-break:break-all">{{ info.spl_med_conditions }}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4"><h4 class="card-title">Ongoing Medication</h4></div>
+    <div class="col-8"><p style="word-break:break-all">{{ info.ongoing_meds }}</p></div>
+  </div>
+</div>
+
+<br /><br />
+
+<div class="common-container">
+  <h1 class="text-wt">General</h1>
+  <br />
+  <div class="row">
+    <div class="col-4"><h4 class="text-wt">Blood Group:</h4></div>
+    <div class="col-8"><p class="text-wt">Pending</p></div>
+  </div>
+  <div class="row">
+    <div class="col-4"><h4 class="text-wt">Height:</h4></div>
+    <div class="col-8"><p class="text-wt">Pending</p></div>
+  </div>
+  <div class="row">
+    <div class="col-4"><h4 class="text-wt">Weight:</h4></div>
+    <div class="col-8"><p class="text-wt">Pending</p></div>
+  </div>
+</div>
+
+<div class="text-center m-2">
+  {% if allow %}
+  <a
+    class="btn btn-primary"
+    href="{% url 'basic_qr:update-medform' info.id %}"
+    role="button"
+    >Edit Details</a
+  >
+  {% endif %} 
+  <!-- {% if allow %}
+  <a href="#" class="btn btn-primary">Upload Documents</a>
+  {% endif %}
+  <a href="#" class="btn btn-primary"> View Uploaded Documents</a> -->
+</div>
+<script></script>
 
 {% endblock %}
