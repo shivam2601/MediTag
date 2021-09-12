@@ -1,20 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>DOCS DISPLAYED HERE</h1>
+<div style="padding: 30px">
 
+<h1 class="text-center">DOCS DISPLAYED HERE</h1>
+
+<br/>
+<br/>
     {% for doc in docs %}
     <ol>
       <li>
-    <ul>
+    <ul style="list-style: none;">
 
       <li>
-        <h1 style="display: inline"><a href="{{doc.file.url}}">{{doc.title}}</a></h1>
-        &emsp; &emsp; &emsp;
-        {% if allow %}
-        <a href="{% url 'basic_qr:update-document' doc.id %}">Edit</a>
-        <a href="{% url 'basic_qr:delete-document' doc.id %}" >Delete</a>
-          {% endif %}
+        <div class="row">
+          <div class="col-8">
+            <h1 style="display: inline"><a href="{{doc.file.url}}">{{doc.title}}</a></h1>
         <p>{{doc.description}}</p>
+
+          </div>
+          <div class="col-4">
+            {% if allow %}
+            <a  href="{% url 'basic_qr:update-document' doc.id %}">Edit</a> 	&nbsp; 	&nbsp;
+            <a href="{% url 'basic_qr:delete-document' doc.id %}" >Delete</a>
+              {% endif %}
+          </div>
+        </div>
+    
       </li>
 
 
@@ -24,7 +35,10 @@
 </ol>
     {% endfor %}
     {% if allow %}
-    <a href="{% url 'basic_qr:upload-document' %}" class="btn btn-primary">Upload A Document</a>
-    {% endif %}
+    <div class="text-center" style="margin-top: 60px">
 
+    <a href="{% url 'basic_qr:upload-document' %}" class="btn btn-primary">Upload A Document</a>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

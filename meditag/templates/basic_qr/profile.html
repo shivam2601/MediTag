@@ -50,7 +50,6 @@
   @media (max-width: 800px) {
     .responsive-flex {
       display: flex;
-      flex-direction: column;
     }
     .container-1 {
       width: 70vw;
@@ -59,7 +58,7 @@
       width: 30vw;
     }
     .container-3 {
-      width: 100vw;
+      width: 40vw;
     }
     .img-size{
       height:60%; width:60% ;
@@ -80,7 +79,6 @@
 
 <br /><br />
 <div class="responsive-flex">
-  <div style="display: flex">
 
     <div class="container-1" style="padding: 10px 15px">
       <ul style="list-style: none; padding: 0px">
@@ -100,16 +98,15 @@
     </div>
 
 
-    <div class="container-2 text-center" style="padding: 10px 0">
+    <!-- <div class="container-2 text-center" style="padding: 10px 0">
       {% load static %}
         <img class="img-size" src="{% static 'assets/pic.png' %}"  alt="home" />
 
     </div>
+ -->
 
 
 
-
-  </div>
   <div class="container-3" style="text-align: center">
     <h4 class="card-title">Your Unique</h4>
     <div class="text-center" style="display: flex;  justify-content: center;">

@@ -1,13 +1,24 @@
-{% extends 'base.html' %}
-{% block content %}
-<div style="padding: 30px;">
-    <form method="post"  enctype="multipart/form-data">
-      {% csrf_token %}
+{% extends 'base.html' %} {% block content %}
+<div style="padding: 30px">
+  <h1 class="text-center">Upload A Document</h1>
+  <br/>
 
-      {{form.as_p}}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %} {% for field in form %}
 
+    <div class="row" style="margin-top: 18px; margin-bottom: 18px">
+      <div class="col-3">{{field.name}}</div>
+      <div class="col-9">{{field}}</div>
+    </div>
+    {% endfor %}
 
-      <input type="submit" value="Submit">
-    </form>
-  </div>
+    <div class="text-center" style="margin-top: 60px">
+      <input
+      class="btn btn-primary"
+        type="submit"
+        value="Submit"
+      />
+    </div>
+  </form>
+</div>
 {% endblock %}

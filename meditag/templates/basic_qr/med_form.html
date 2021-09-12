@@ -1,13 +1,26 @@
-{% extends 'base.html' %}
-{% block content %}
-<div style="padding: 30px;">
-    <form method="post">
-      {% csrf_token %}
+{% extends 'base.html' %} {% block content %}
+<style>
+  #id_name {
+    width: 80%;
+  }
+</style>
+<div style="padding: 30px">
+  <h1><u>Fill in your Personal Details</u></h1>
+  <br />
+  <form method="post">
+    {% csrf_token %} {% for field in form %}
+    <div class="row" style="margin-top: 18px; margin-bottom: 18px">
+      <div class="col-3">{{field.name}}</div>
+      <div class="col-9">{{field}}</div>
+    </div>
+    {% endfor %}
+    <div class="text-center">
+      <input class="btn btn-primary" type="submit" value="Submit" />
+    </div>
+  </form>
+  <a class="nav-link" href="{% url 'basic_qr:faq' %}">
+    <button class="btn btn-primary">FAQ</button></a
+  >
+</div>
 
-      {{form.as_p}}
-      
-
-      <input type="submit" value="Submit">
-    </form>
-  </div>
 {% endblock %}
