@@ -1,4 +1,10 @@
-{% extends 'base.html' %} {% load qr_code %} {% block header %}
+{% extends 'base.html' %} {% load qr_code %}
+{% block header %}
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'basic_qr:profile' num %}">Profile</a>
+</li>
+{% endblock %}
+{% block content %}
 <style>
   .list-item-size {
     font-size: 1rem;
@@ -67,10 +73,7 @@
     }
   }
 </style>
-<li class="nav-item">
-  <a class="nav-link" href="{% url 'basic_qr:profile' num %}">Profile</a>
-</li>
-{% endblock %} {% block content %}
+
 <!-- <center>
       <h1>{{info.name}} 's Profile &emsp;</h1>
     </center> -->
@@ -82,29 +85,30 @@
     <div class="container-1" style="padding: 10px 15px">
       <ul style="list-style: none; padding: 0px">
         <li><div class="row"><div class="col"> <h6>Name-</h6> </div> <div class="col">{{info.name}}</div></div> </li>
-        <li><div class="row"><div class="col"> <h6>Date Of birth-</h6> </div> <div class="col">Pending</div></div> </li>
-        <li><div class="row"><div class="col"> <h6>Contact No.-</h6> </div> <div class="col">Pending</div></div> </li>
-        <li><div class="row"><div class="col"> <h6>Address-</h6> </div> <div class="col">Pending</div></div> </li>
+        <li><div class="row"><div class="col"> <h6>Date of Birth-</h6> </div> <div class="col">{{info.dob}}</div></div> </li>
+        <li><div class="row"><div class="col"> <h6>Contact No.-</h6> </div> <div class="col">{{info.contact_no}}</div></div> </li>
+        <li><div class="row"><div class="col"> <h6>Age-</h6> </div> <div class="col">{{age}}</div></div> </li>
+        <li><div class="row"><div class="col"> <h6>Address-</h6> </div> <div class="col">{{info.address}}</div></div> </li>
         <!-- <li>Emergency Contact: {{info.emergency_no}}</li>
             <li>Blood Group: {{info.blood_group}}</li>
             <li>Height (cms): {{info.height_cms}}</li>
             <li>Weight (kgs): {{info.weight_kgs}}</li> -->
       </ul>
-      
+
 
 
     </div>
 
 
     <div class="container-2 text-center" style="padding: 10px 0">
-      {% load static %} 
+      {% load static %}
         <img class="img-size" src="{% static 'assets/pic.png' %}"  alt="home" />
-    
+
     </div>
 
-    
 
-    
+
+
   </div>
   <div class="container-3" style="text-align: center">
     <h4 class="card-title">Your Unique</h4>
@@ -131,7 +135,7 @@
             {{info.id}}
           </p> -->
   </div>
-  
+
 </div>
 
 <br />
@@ -149,7 +153,7 @@
     <div class="col-8"><p class="text-wt">{{info.emergency_no}}</p></div>
   </div>
   <img class="img-size-b" src="{% static 'assets/5.png' %}"  alt="home" />
-  
+
 </div>
 
 <div style="padding: 10px">
@@ -195,15 +199,15 @@
   <br />
   <div class="row">
     <div class="col-4"><h4 class="text-wt">Blood Group:</h4></div>
-    <div class="col-8"><p class="text-wt">Pending</p></div>
+    <div class="col-8"><p class="text-wt">{{info.blood_group}}</p></div>
   </div>
   <div class="row">
     <div class="col-4"><h4 class="text-wt">Height:</h4></div>
-    <div class="col-8"><p class="text-wt">Pending</p></div>
+    <div class="col-8"><p class="text-wt">{{info.height_cms}} cms</p></div>
   </div>
   <div class="row">
     <div class="col-4"><h4 class="text-wt">Weight:</h4></div>
-    <div class="col-8"><p class="text-wt">Pending</p></div>
+    <div class="col-8"><p class="text-wt">{{info.weight_kgs}} kgs</p></div>
   </div>
 </div>
 
@@ -215,12 +219,18 @@
     role="button"
     >Edit Details</a
   >
-  {% endif %} 
+  {% endif %}
   <!-- {% if allow %}
   <a href="#" class="btn btn-primary">Upload Documents</a>
   {% endif %}
   <a href="#" class="btn btn-primary"> View Uploaded Documents</a> -->
 </div>
+<div class="text-center">
+      {% if allow %}
+      <a href="{% url 'basic_qr:upload-document' %}" class="btn btn-primary">Upload A Document</a>
+      {% endif %}
+      <a href="{% url 'basic_qr:display-documents' info.id %}" class="btn btn-primary"> View Uploaded Documents</a>
+    </div>
 <script></script>
 
 {% endblock %}

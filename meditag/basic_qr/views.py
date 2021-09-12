@@ -1,11 +1,67 @@
 from django.shortcuts import render,redirect
-from .forms import addUserInfo,CreateUserForm
+from .forms import addUserInfo,CreateUserForm,UploadDocumentForm
 from django.contrib.auth import authenticate,login,logout
-from .models import UserProfile
+from .models import UserProfile,UploadDocument
 import qrcode
 import qrcode.image.svg
 from io import BytesIO
 # Create your views here.
+from datetime import date
+
+def calculate_age(born):
+    today = date.today()
+    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+
+def displayDocuments(request,pk):
+    allow= False
+    info= UserProfile.objects.get(id=pk)
+    if request.user.is_authenticated:
+
+        check_info = UserProfile.objects.get(user=request.user)
+        num = str(check_info.id)
+        if str(check_info.id) == pk:
+
+            allow= True
+
+    docs = info.user.documents.all()
+    return render(request,"basic_qr/display_documents.html",{'docs':docs,'allow':allow})
+
+def uploadDocument(request):
+
+    if request.method == 'POST':
+
+        form = UploadDocumentForm(request.POST,request.FILES)
+        if form.is_valid():
+            doc = form.save(commit=False)
+            doc.user = request.user
+            doc.save()
+            form.save()
+
+        pk = UserProfile.objects.get(user=request.user).id
+        return redirect("basic_qr:display-documents",pk)
+    else:
+        form = UploadDocumentForm()
+    return render(request, "basic_qr/upload-document.html",{'form':form})
+
+def updateDocument(request,pk):
+    document = UploadDocument.objects.get(id=pk)
+    form = UploadDocumentForm(instance=document)
+
+    if request.method == 'POST':
+        form = UploadDocumentForm(request.POST,request.FILES,instance=document)
+
+        if form.is_valid():
+            form.save()
+        pk = UserProfile.objects.get(user=request.user).id
+        return redirect("basic_qr:display-documents",pk)
+    return render(request, "basic_qr/upload-document.html",{'form':form})
+
+def deleteDocument(request,pk):
+    document = UploadDocument.objects.get(id=pk)
+    document.delete()
+    ID = UserProfile.objects.get(user=request.user).id
+    return redirect("basic_qr:display-documents",ID)
+
 def medform(request):
 
     if request.method == 'POST':
@@ -34,7 +90,12 @@ def updateMedform(request,pk):
     return render(request, "basic_qr/med_form.html",{'form':form})
 
 def landing(request):
-    return render(request,"landing.html")
+    user = request.user
+    info = ""
+    if user.is_authenticated:
+        info = UserProfile.objects.get(user = user).id
+
+    return render(request,"landing.html",{'num':info})
 
 def profile(request,pk):
     info = UserProfile.objects.get(id=pk)
@@ -53,6 +114,7 @@ def profile(request,pk):
     'num':num,
     'allow':allow,
     'path':"http://127.0.0.1:8000/" + str(request.path) ,
+    'age':calculate_age(info.dob)
     }
     return render(request,"basic_qr/profile.html",context)
 

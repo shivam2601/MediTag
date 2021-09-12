@@ -1,7 +1,12 @@
 
 {% extends 'base.html' %}
+{% block header %}
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'basic_qr:profile' num %}">Profile</a>
+</li>
+{% endblock %}
 {% block content %}
-{% load static %} 
+{% load static %}
 
      <style>
         .child-step-container{
@@ -34,7 +39,7 @@
           .flex-container{
             display: flex;
             flex-direction: column;
-            
+
           }
           .step{
           width: 100%;
@@ -48,12 +53,12 @@
           height:auto
           }
         }
-        
+
     </style>
 <div class="flex-container">
 <img class="hero-image" src="{% static 'assets/bgImg.jpg' %}" alt="img"  >
 
-<div style="padding:20px; text-align: center;" class="ht-hero"> 
+<div style="padding:20px; text-align: center;" class="ht-hero">
     <h1 style="font-weight: bold">Medi Tag</h1>
     <h3 >Record your health detail and medical reports all in one place</h3>
     <p style="font-size: large; font-weight: bolder;" >---------------------------------------------</p>
@@ -84,9 +89,9 @@
 </div>
     <h1 style="text-align: center;"> 100+ Trusted User</h1>
     <div class="steps-container">
-       
+
         <a class="nav-link" href="{% url 'basic_qr:register' %}"> <button> <h2>Register Now!</h2></button></a>
 
     </div>
-    
+
 {% endblock %}

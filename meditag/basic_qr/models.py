@@ -28,5 +28,24 @@ class UserProfile(models.Model):
     ongoing_meds = models.TextField(null=True,blank=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
+    dob = models.DateField(blank=True,null=True)
+    address = models.TextField(null=True,blank=True)
     def __str__(self):
         return self.name
+def user_directory_path(instance, filename):
+
+    # file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
+    return 'user_{0}/{1}'.format(instance.user.id, filename)
+
+class UploadDocument(models.Model):
+    user = models.ForeignKey(User,related_name="documents",on_delete=models.CASCADE,null=True,blank=True)
+    title = models.CharField(max_length=100,null=True)
+    description = models.CharField(max_length=250,null=True)
+    file = models.FileField(upload_to=user_directory_path)
+
+    def __str__(self):
+        return self.title
+
+    def delete(self, *args, **kwargs):
+        self.file.delete()
+        super().delete(*args, **kwargs)
